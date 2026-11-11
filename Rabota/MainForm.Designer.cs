@@ -39,6 +39,13 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtInventoryNum = new System.Windows.Forms.TextBox();
+            this.txtType = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,7 +54,7 @@
             this.dgvDrones.AllowUserToAddRows = false;
             this.dgvDrones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDrones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDrones.Location = new System.Drawing.Point(23, 89);
+            this.dgvDrones.Location = new System.Drawing.Point(22, 128);
             this.dgvDrones.MultiSelect = false;
             this.dgvDrones.Name = "dgvDrones";
             this.dgvDrones.ReadOnly = true;
@@ -58,101 +65,180 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(84, 43);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.label1.Location = new System.Drawing.Point(26, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 13);
+            this.label1.Size = new System.Drawing.Size(220, 39);
             this.label1.TabIndex = 1;
             this.label1.Text = "Всего БПЛА:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblTotalDrones
             // 
             this.lblTotalDrones.AutoSize = true;
+            this.lblTotalDrones.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.lblTotalDrones.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.lblTotalDrones.Location = new System.Drawing.Point(252, 43);
+            this.lblTotalDrones.Location = new System.Drawing.Point(27, 70);
             this.lblTotalDrones.Name = "lblTotalDrones";
-            this.lblTotalDrones.Size = new System.Drawing.Size(13, 13);
+            this.lblTotalDrones.Size = new System.Drawing.Size(29, 31);
             this.lblTotalDrones.TabIndex = 0;
             this.lblTotalDrones.Text = "0";
+            this.lblTotalDrones.Click += new System.EventHandler(this.lblTotalDrones_Click);
             // 
             // btnRefresh
             // 
-            this.btnRefresh.Location = new System.Drawing.Point(383, 51);
+            this.btnRefresh.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnRefresh.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRefresh.Location = new System.Drawing.Point(347, 56);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(107, 50);
             this.btnRefresh.TabIndex = 2;
             this.btnRefresh.Text = "Обновить";
-            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.UseVisualStyleBackColor = false;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(540, 457);
+            this.btnAdd.BackColor = System.Drawing.Color.MediumOrchid;
+            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
+            this.btnAdd.ForeColor = System.Drawing.Color.Black;
+            this.btnAdd.Location = new System.Drawing.Point(608, 448);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(185, 23);
+            this.btnAdd.Size = new System.Drawing.Size(185, 43);
             this.btnAdd.TabIndex = 3;
             this.btnAdd.Text = "Добавить БПЛА";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // txtStatus
             // 
             this.txtStatus.Location = new System.Drawing.Point(383, 457);
             this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(100, 20);
+            this.txtStatus.Size = new System.Drawing.Size(196, 20);
             this.txtStatus.TabIndex = 4;
-            this.txtStatus.Text = "Исправен";
             this.txtStatus.TextChanged += new System.EventHandler(this.txtStatus_TextChanged);
             // 
             // txtModel
             // 
             this.txtModel.Location = new System.Drawing.Point(206, 457);
             this.txtModel.Name = "txtModel";
-            this.txtModel.Size = new System.Drawing.Size(100, 20);
+            this.txtModel.Size = new System.Drawing.Size(171, 20);
             this.txtModel.TabIndex = 5;
-            this.txtModel.Text = "Модель";
             this.txtModel.TextChanged += new System.EventHandler(this.txtModel_TextChanged);
             // 
             // txtDroneName
             // 
-            this.txtDroneName.Location = new System.Drawing.Point(53, 457);
+            this.txtDroneName.Location = new System.Drawing.Point(22, 457);
             this.txtDroneName.Name = "txtDroneName";
-            this.txtDroneName.Size = new System.Drawing.Size(100, 20);
+            this.txtDroneName.Size = new System.Drawing.Size(178, 20);
             this.txtDroneName.TabIndex = 6;
-            this.txtDroneName.Text = "Название";
             this.txtDroneName.TextChanged += new System.EventHandler(this.txtDroneName_TextChanged);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(798, 457);
+            this.btnDelete.BackColor = System.Drawing.Color.Red;
+            this.btnDelete.Location = new System.Drawing.Point(833, 446);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(130, 23);
+            this.btnDelete.Size = new System.Drawing.Size(130, 45);
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Удалить выбранный";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(562, 51);
+            this.txtSearch.Location = new System.Drawing.Point(505, 70);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(100, 20);
+            this.txtSearch.Size = new System.Drawing.Size(314, 20);
             this.txtSearch.TabIndex = 8;
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(752, 51);
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSearch.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnSearch.Location = new System.Drawing.Point(850, 56);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(113, 50);
             this.btnSearch.TabIndex = 9;
             this.btnSearch.Text = "Найти";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(19, 441);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Название:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(203, 441);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Модель:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(380, 441);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Исправен:";
+            // 
+            // txtInventoryNum
+            // 
+            this.txtInventoryNum.Location = new System.Drawing.Point(22, 505);
+            this.txtInventoryNum.Name = "txtInventoryNum";
+            this.txtInventoryNum.Size = new System.Drawing.Size(178, 20);
+            this.txtInventoryNum.TabIndex = 13;
+            // 
+            // txtType
+            // 
+            this.txtType.Location = new System.Drawing.Point(206, 505);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(178, 20);
+            this.txtType.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(19, 489);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(114, 13);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "Инвентарный номер:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(203, 489);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Тип:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 661);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txtType);
+            this.Controls.Add(this.txtInventoryNum);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.btnDelete);
@@ -185,5 +271,12 @@
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtInventoryNum;
+        private System.Windows.Forms.TextBox txtType;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

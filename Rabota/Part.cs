@@ -15,4 +15,3 @@ namespace Rabota
         public string StorageLocation { get; set; }
     }
 }
-э
