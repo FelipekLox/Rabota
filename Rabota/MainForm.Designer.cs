@@ -216,7 +216,6 @@
             this.label5.Size = new System.Drawing.Size(114, 13);
             this.label5.TabIndex = 15;
             this.label5.Text = "Инвентарный номер:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label6
             // 

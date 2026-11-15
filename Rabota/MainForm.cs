@@ -31,6 +31,7 @@ namespace Rabota
             Control[] found = this.Controls.Find("cmbType", true);
             if (found.Length > 0 && found[0] is ComboBox cmb)
             {
+                cmb.DropDownStyle = ComboBoxStyle.DropDown;
                 cmb.Items.Clear();
                 cmb.Items.Add("Квадрокоптер");
                 cmb.Items.Add("Самолетный");
@@ -54,12 +55,24 @@ namespace Rabota
             if (txtStatus != null) txtStatus.Text = "Исправен";
 
             Control[] foundType = this.Controls.Find("cmbType", true);
-            if (foundType.Length > 0 && foundType[0] is ComboBox cmb && cmb.Items.Count > 0)
-                cmb.SelectedIndex = 0;
+            if (foundType.Length > 0 && foundType[0] is ComboBox cmb)
+            {
+                cmb.Text = "Квадрокоптер";
+            }
+            else
+            {
+                Control[] foundTxtType = this.Controls.Find("txtType", true);
+                if (foundTxtType.Length > 0 && foundTxtType[0] is TextBox txtT)
+                {
+                    txtT.Clear();
+                }
+            }
 
             Control[] foundInv = this.Controls.Find("txtInventoryNum", true);
             if (foundInv.Length > 0 && foundInv[0] is TextBox txt)
+            {
                 txt.Clear();
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -72,9 +85,20 @@ namespace Rabota
                 Control[] foundType = this.Controls.Find("cmbType", true);
                 if (foundType.Length > 0 && foundType[0] is ComboBox cmb)
                 {
-                    droneType = cmb.SelectedItem?.ToString() ?? "Квадрокоптер";
+                    if (!string.IsNullOrWhiteSpace(cmb.Text))
+                    {
+                        droneType = cmb.Text.Trim();
+                    }
                 }
-ь
+                else
+                {
+                    Control[] foundTxtType = this.Controls.Find("txtType", true);
+                    if (foundTxtType.Length > 0 && foundTxtType[0] is TextBox txtT && !string.IsNullOrWhiteSpace(txtT.Text))
+                    {
+                        droneType = txtT.Text.Trim();
+                    }
+                }
+
                 string invNum = "Б/Н";
                 Control[] foundInv = this.Controls.Find("txtInventoryNum", true);
                 if (foundInv.Length > 0 && foundInv[0] is TextBox txt)
@@ -85,11 +109,11 @@ namespace Rabota
                 Drone newDrone = new Drone
                 {
                     Id = nextId,
-                    Name = string.IsNullOrWhiteSpace(txtDroneName?.Text) ? "Без названия" : txtDroneName.Text.Trim(),
-                    Model = string.IsNullOrWhiteSpace(txtModel?.Text) ? "Неизвестная модель" : txtModel.Text.Trim(),
+                    Name = string.IsNullOrWhiteSpace(txtDroneName.Text) ? "Без названия" : txtDroneName.Text.Trim(),
+                    Model = string.IsNullOrWhiteSpace(txtModel.Text) ? "Неизвестная модель" : txtModel.Text.Trim(),
                     Type = droneType,
                     InventoryNumber = invNum,
-                    Status = string.IsNullOrWhiteSpace(txtStatus?.Text) ? "Исправен" : txtStatus.Text.Trim()
+                    Status = string.IsNullOrWhiteSpace(txtStatus.Text) ? "Исправен" : txtStatus.Text.Trim()
                 };
 
                 drones.Add(newDrone);
@@ -98,7 +122,7 @@ namespace Rabota
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при добавлении БПЛА: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка при добавлении: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -155,10 +179,6 @@ namespace Rabota
         private void txtStatus_TextChanged(object sender, EventArgs e) { }
         private void label2_Click(object sender, EventArgs e) { }
         private void label3_Click(object sender, EventArgs e) { }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void label6_Click(object sender, EventArgs e) { }
     }
 }
