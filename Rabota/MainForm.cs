@@ -8,22 +8,13 @@ namespace Rabota
     public partial class MainForm : Form
     {
         private List<Drone> drones = new List<Drone>();
+        private readonly DatabaseHelper _db = new DatabaseHelper();
 
         public MainForm()
         {
             InitializeComponent();
-            LoadDefaultDrones();
             InitializeTypeComboBox();
             RefreshTable();
-        }
-
-        private void LoadDefaultDrones()
-        {
-            drones.Add(new Drone { Id = 1, Name = "Учебный №1", Model = "DJI Phantom 4 Pro", Type = "Квадрокоптер", InventoryNumber = "UAV-001", Status = "Исправен" });
-            drones.Add(new Drone { Id = 2, Name = "Учебный №2", Model = "Геоскан Lite", Type = "Самолетный", InventoryNumber = "UAV-002", Status = "На обслуживании" });
-            drones.Add(new Drone { Id = 3, Name = "Учебный №3", Model = "F450", Type = "Квадрокоптер", InventoryNumber = "UAV-003", Status = "Исправен" });
-            drones.Add(new Drone { Id = 4, Name = "Учебный №4", Model = "Tarot T650", Type = "Гексакоптер", InventoryNumber = "UAV-004", Status = "Исправен" });
-            drones.Add(new Drone { Id = 5, Name = "Учебный №5", Model = "SkyWalker X-8", Type = "Самолетный", InventoryNumber = "UAV-005", Status = "Исправен" });
         }
 
         private void InitializeTypeComboBox()
@@ -43,9 +34,17 @@ namespace Rabota
 
         private void RefreshTable()
         {
-            dgvDrones.DataSource = null;
-            dgvDrones.DataSource = drones;
-            lblTotalDrones.Text = drones.Count.ToString();
+            try
+            {
+                drones = _db.GetDrones();
+                dgvDrones.DataSource = null;
+                dgvDrones.DataSource = drones;
+                lblTotalDrones.Text = drones.Count.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка загрузки данных из БД: " + ex.Message, "Ошибка БД", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ClearInputFields()
@@ -79,8 +78,6 @@ namespace Rabota
         {
             try
             {
-                int nextId = drones.Any() ? drones.Max(d => d.Id) + 1 : 1;
-
                 string droneType = "Квадрокоптер";
                 Control[] foundType = this.Controls.Find("cmbType", true);
                 if (foundType.Length > 0 && foundType[0] is ComboBox cmb)
@@ -108,7 +105,6 @@ namespace Rabota
 
                 Drone newDrone = new Drone
                 {
-                    Id = nextId,
                     Name = string.IsNullOrWhiteSpace(txtDroneName.Text) ? "Без названия" : txtDroneName.Text.Trim(),
                     Model = string.IsNullOrWhiteSpace(txtModel.Text) ? "Неизвестная модель" : txtModel.Text.Trim(),
                     Type = droneType,
@@ -116,13 +112,14 @@ namespace Rabota
                     Status = string.IsNullOrWhiteSpace(txtStatus.Text) ? "Исправен" : txtStatus.Text.Trim()
                 };
 
-                drones.Add(newDrone);
+                // Сохраняем в PostgreSQL и обновляем таблицу
+                _db.AddDrone(newDrone);
                 RefreshTable();
                 ClearInputFields();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при добавлении: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка при добавлении в БД: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -162,8 +159,15 @@ namespace Rabota
                 var result = MessageBox.Show($"Вы уверены, что хотите удалить {selectedDrone.Name}?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    drones.Remove(selectedDrone);
-                    RefreshTable();
+                    try
+                    {
+                        _db.DeleteDrone(selectedDrone.Id);
+                        RefreshTable();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при удалении из БД: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -180,5 +184,6 @@ namespace Rabota
         private void label2_Click(object sender, EventArgs e) { }
         private void label3_Click(object sender, EventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }
+        private void MainForm_Load(object sender, EventArgs e) { }
     }
 }

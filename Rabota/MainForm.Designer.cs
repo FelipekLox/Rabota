@@ -251,6 +251,7 @@
             this.Controls.Add(this.dgvDrones);
             this.Name = "MainForm";
             this.Text = "Учёт БПЛА — AeroBase";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrones)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

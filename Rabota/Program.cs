@@ -17,4 +17,3 @@ namespace Rabota
         }
     }
 }
-//,,,rt,,t,t,tt,dddddd
